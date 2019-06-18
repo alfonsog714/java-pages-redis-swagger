@@ -79,7 +79,7 @@ public class RestaurantController
         return new ResponseEntity<>(r, HttpStatus.OK);
     }
 
-
+    @ApiOperation(value = "Creates a new Restaurant", notes = "The newly created restaurant id will be sent in the location header", response = void.class)
     @PostMapping(value = "/restaurant",
                  consumes = {"application/json"},
                  produces = {"application/json"})
