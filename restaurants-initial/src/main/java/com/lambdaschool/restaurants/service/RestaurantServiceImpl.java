@@ -147,10 +147,10 @@ public class RestaurantServiceImpl implements RestaurantService
     }
 
     @Override
-    public List<Restaurant> findRestaurantByNameLike(String name)
+    public List<Restaurant> findRestaurantByNameLike(String name, Pageable pageable)
     {
         List<Restaurant> list = new ArrayList<>();
-        restrepos.findByNameContainingIgnoreCase(name).iterator().forEachRemaining(list::add);
+        restrepos.findByNameContainingIgnoreCase(name, pageable).iterator().forEachRemaining(list::add);
         return list;
     }
 }

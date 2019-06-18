@@ -1,6 +1,7 @@
 package com.lambdaschool.restaurants.repos;
 
 import com.lambdaschool.restaurants.model.Restaurant;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
@@ -10,5 +11,5 @@ public interface RestaurantRepository extends PagingAndSortingRepository<Restaur
 {
     Restaurant findByName(String name);
 
-    List<Restaurant> findByNameContainingIgnoreCase(String name);
+    List<Restaurant> findByNameContainingIgnoreCase(String name, Pageable pageable);
 }

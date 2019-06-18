@@ -13,7 +13,7 @@ public interface RestaurantService
 
     Restaurant findRestaurantByName(String name);
 
-    List<Restaurant> findRestaurantByNameLike(String name);
+    List<Restaurant> findRestaurantByNameLike(String name, Pageable pageable);
 
     void delete(long id);
 

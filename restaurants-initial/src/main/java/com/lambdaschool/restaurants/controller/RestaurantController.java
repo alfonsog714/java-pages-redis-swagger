@@ -44,9 +44,9 @@ public class RestaurantController
     }
 
     @GetMapping(value = "/restaurant/namelike/{name}",produces = {"application/json"})
-    public ResponseEntity<?> getRestaurantByNameContaining(@PathVariable String name)
+    public ResponseEntity<?> getRestaurantByNameContaining(@PathVariable String name, @PageableDefault(page = 0, size = 5) Pageable pageable)
     {
-        List<Restaurant> myRestaurants = restaurantService.findRestaurantByNameLike(name);
+        List<Restaurant> myRestaurants = restaurantService.findRestaurantByNameLike(name, pageable);
         return new ResponseEntity<>(myRestaurants, HttpStatus.OK);
     }
 
