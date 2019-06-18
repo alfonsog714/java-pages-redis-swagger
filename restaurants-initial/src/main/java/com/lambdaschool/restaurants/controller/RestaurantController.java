@@ -54,6 +54,7 @@ public class RestaurantController
     @GetMapping(value = "/restaurant/{restaurantId}",
                 produces = {"application/json"})
     public ResponseEntity<?> getRestaurantById(
+            @ApiParam(value = "Restaurant ID", required = true, example = "1")
             @PathVariable
                     Long restaurantId)
     {
