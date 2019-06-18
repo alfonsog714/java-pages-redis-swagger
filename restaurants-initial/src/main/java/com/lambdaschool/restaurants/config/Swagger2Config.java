@@ -29,7 +29,7 @@ public class Swagger2Config
     private ApiInfo apiEndPointsInfo()
     {
         return new ApiInfoBuilder().title("Restaurant Example")
-                .description("Restaurant Example")
+                .description("Restaurant Example Description")
                 .contact(new Contact("John Mitchell", "http://www.lambdaschool.com", "john@lambdaschool.com"))
                 .license("MIT").licenseUrl("https://github.com/LambdaSchool/java-crudysnacks/blob/master/LICENSE")
                 .version("1.0.0").build();
