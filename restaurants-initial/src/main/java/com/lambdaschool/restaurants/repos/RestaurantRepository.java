@@ -2,10 +2,11 @@ package com.lambdaschool.restaurants.repos;
 
 import com.lambdaschool.restaurants.model.Restaurant;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.PagingAndSortingRepository;
 
 import java.util.List;
 
-public interface RestaurantRepository extends CrudRepository<Restaurant, Long>
+public interface RestaurantRepository extends PagingAndSortingRepository<Restaurant, Long>
 {
     Restaurant findByName(String name);
 
