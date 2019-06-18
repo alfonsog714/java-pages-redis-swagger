@@ -1,7 +1,9 @@
 package com.lambdaschool.restaurants.controller;
 
+import com.lambdaschool.restaurants.model.ErrorDetail;
 import com.lambdaschool.restaurants.model.Restaurant;
 import com.lambdaschool.restaurants.service.RestaurantService;
+import io.swagger.annotations.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -11,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -25,6 +28,16 @@ public class RestaurantController
     private RestaurantService restaurantService;
 
 
+    @ApiOperation(value = "return all Restaurants", response = Restaurant.class, responseContainer = "List")
+    @ApiImplicitParams({
+            @ApiImplicitParam(name = "page", dataType = "integr", paramType = "query",
+                    value = "Results page you want to retrieve (0..N)"),
+            @ApiImplicitParam(name = "size", dataType = "integer", paramType = "query",
+                    value = "Number of records per page."),
+            @ApiImplicitParam(name = "sort", allowMultiple = true, dataType = "string", paramType = "query",
+                    value = "Sorting criteria in the format: property(,asc|desc). " +
+                            "Default sort order is ascending. " +
+                            "Multiple sort criteria are supported.")})
     @GetMapping(value = "/restaurants",
                 produces = {"application/json"})
     public ResponseEntity<?> listAllRestaurants(@PageableDefault(page = 0, size = 5) Pageable pageable)
@@ -33,6 +46,11 @@ public class RestaurantController
         return new ResponseEntity<>(myRestaurants, HttpStatus.OK);
     }
 
+    @ApiOperation(value = "Retrieves a restaurant associated with the restaurantid", response = Restaurant.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 201, message = "Restaurant Found", response = Restaurant.class),
+            @ApiResponse(code = 404, message = "Restaurant Not Found", response = ErrorDetail.class)
+    })
     @GetMapping(value = "/restaurant/{restaurantId}",
                 produces = {"application/json"})
     public ResponseEntity<?> getRestaurantById(
