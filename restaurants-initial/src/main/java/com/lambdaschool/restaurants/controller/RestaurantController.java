@@ -80,6 +80,10 @@ public class RestaurantController
     }
 
     @ApiOperation(value = "Creates a new Restaurant", notes = "The newly created restaurant id will be sent in the location header", response = void.class)
+    @ApiResponses(value = {
+            @ApiResponse(code= 201, message = "Restaurant Created Successfully", response = void.class),
+            @ApiResponse(code = 500, message = "Error creating restaurant", response = ErrorDetail.class)
+    })
     @PostMapping(value = "/restaurant",
                  consumes = {"application/json"},
                  produces = {"application/json"})
