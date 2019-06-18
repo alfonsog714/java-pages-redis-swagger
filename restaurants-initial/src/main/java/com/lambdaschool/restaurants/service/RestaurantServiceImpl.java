@@ -144,4 +144,12 @@ public class RestaurantServiceImpl implements RestaurantService
 
         return restrepos.save(currentRestaurant);
     }
+
+    @Override
+    public List<Restaurant> findRestaurantByNameLike(String name)
+    {
+        List<Restaurant> list = new ArrayList<>();
+        restrepos.findByNameContainingIgnoreCase(name).iterator().forEachRemaining(list::add);
+        return list;
+    }
 }
