@@ -1,28 +1,41 @@
 package com.lambdaschool.restaurants.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
 
 import javax.persistence.*;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
 
 // Restaurant is considered the parent entity of all - the Grand Poobah!
 
+@ApiModel(value = "Restaurant", description = "The Restaurant Entity")
 @Entity
 @Table(name = "restaurant")
 public class Restaurant extends Auditable
 {
+    @ApiModelProperty(name = "restaurantid", value = "Primary key for Restaurant", required = true, example = "1")
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long restaurantid;
 
+    @ApiModelProperty(name = "name", value = "The name of the Restaurant", required = true, example = "McDonalds")
     @Column(unique = true,
             nullable = false)
     private String name;
 
     private String address;
     private String city;
+
+    @Size(min = 2, max = 2, message = "State is the two character state abbreviation")
+    @ApiModelProperty(name = "state", value = "The state that the restaurant is located in", required = true, example = "CA")
     private String state;
+
+    @ApiModelProperty(name = "telephone", value = "The telephone number of the Restauraunt", required = true, example = "555-555-5555")
+    @Pattern(regexp = "\\d{3}-\\d{3}-\\d{4}", message = "Telephone is 555-555-5555")
     private String telephone;
 
     @OneToMany(mappedBy = "restaurant",
