@@ -3,6 +3,8 @@ package com.lambdaschool.restaurants.controller;
 import com.lambdaschool.restaurants.model.Restaurant;
 import com.lambdaschool.restaurants.service.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,9 +27,9 @@ public class RestaurantController
 
     @GetMapping(value = "/restaurants",
                 produces = {"application/json"})
-    public ResponseEntity<?> listAllRestaurants()
+    public ResponseEntity<?> listAllRestaurants(@PageableDefault(page = 0, size = 5) Pageable pageable)
     {
-        List<Restaurant> myRestaurants = restaurantService.findAll();
+        List<Restaurant> myRestaurants = restaurantService.findAll(pageable);
         return new ResponseEntity<>(myRestaurants, HttpStatus.OK);
     }
 
