@@ -12,6 +12,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import javax.validation.Valid;
 import java.net.URI;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -40,6 +41,12 @@ public class RestaurantController
         return new ResponseEntity<>(r, HttpStatus.OK);
     }
 
+    @GetMapping(value = "/restaurant/namelike/{name}",produces = {"application/json"})
+    public ResponseEntity<?> getRestaurantByNameContaining(@PathVariable String name)
+    {
+        List<Restaurant> myRestaurants = restaurantService.findRestaurantByNameLike(name);
+        return new ResponseEntity<>(myRestaurants, HttpStatus.OK);
+    }
 
     @GetMapping(value = "/restaurant/name/{name}",
                 produces = {"application/json"})

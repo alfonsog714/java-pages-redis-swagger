@@ -12,6 +12,8 @@ public interface RestaurantService
 
     Restaurant findRestaurantByName(String name);
 
+    List<Restaurant> findRestaurantByNameLike(String name);
+
     void delete(long id);
 
     Restaurant save(Restaurant restaurant);
